@@ -108,8 +108,69 @@ def sum_game_ids(game_ids):
     print("The sum of the possible game IDs =", sum)
     return sum
 
+# --- Part Two ---
+
+def calculate_min_cubes_needed_per_game(game_sets):
+    '''
+    Calculates the fewest number of cubes of each color that could have been in the bag
+    to make a game possible
+
+    Parameters:
+    game_sets (array): each set is a dict that maps color (str) to quantity (int);
+    3 sets in total
+
+    Returns:
+    max_colors (dict): maps color (str) to min quantity needed (int)
+    '''
+
+    max_colors = {}
+    for game_set in game_sets:
+        for color, quantity in game_set.items():
+            if color not in max_colors or max_colors[color] < quantity:
+                max_colors[color] = quantity
+    return max_colors
+
+def calculate_power_of_a_game(max_colors):
+    '''
+    Calculates the product of the quantities of all the max colors of a game
+
+    Parameters:
+    max_colors (dict): maps color (str) to min quantity needed (int)
+
+    Returns:
+    power (int): product of the quantities of all the colors
+    '''
+
+    power = 1
+    for quantity in max_colors.values():
+        power *= quantity
+    return power
+
+def calculate_sum_of_powers_of_all_games(game_records):
+    '''
+    Gets max (min possible) of each color of each game, multiples the max colors to get the
+    power, and the sum of all the powers
+
+    Parameters:
+    game_records (dict): maps game_id (int) to game_sets (array)
+
+    Returns:
+    powers_of_all_games (int)
+    '''
+
+    powers_of_all_games = 0
+
+    for game_sets in game_records.values():
+        max_colors_of_game = calculate_min_cubes_needed_per_game(game_sets)
+        powers_of_all_games += calculate_power_of_a_game(max_colors_of_game)
+
+    print(f'The sum of the power of all the games = {powers_of_all_games}')
+    return powers_of_all_games
+
 if __name__ == "__main__":
 
     game_records = convert_txt_to_dict("day_two_input.txt")
     possible_game_ids = list_possible_games(game_records)
     sum_game_ids(possible_game_ids)
+
+    calculate_sum_of_powers_of_all_games(game_records)
