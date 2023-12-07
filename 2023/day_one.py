@@ -4,6 +4,17 @@ import re
 # --- Part One ---
 
 def get_calibration_values(file_name):
+    '''
+    Takes the first and last digits in a line, combine them into an integer, and add it to
+    a list
+
+    Parameters:
+    file_name (str): name of input txt file in same directory as this one
+
+    Returns:
+    calibration_values (array): list of integers
+    '''
+
     calibration_values = []
 
     with open(file_name, 'r') as file:
@@ -18,6 +29,16 @@ def get_calibration_values(file_name):
     return calibration_values
 
 def sum_calibration_values(calibration_values):
+    '''
+    Adds up all the calibration values provided
+
+    Parameters:
+    calibration_values (array): list of integers
+
+    Returns:
+    sum (int): sum of all calibration values
+    '''
+
     sum = 0
 
     for calibration_value in calibration_values:
@@ -27,7 +48,19 @@ def sum_calibration_values(calibration_values):
     return sum
 
 # --- Part Two ---
+
 def get_correct_calibration_values(file_name):
+    '''
+    Takes the first and last numbers in a line, whether or not the number is a digit or
+    spelled out. Combine them into an integer, and add it to a list.
+
+    Parameters:
+    file_name (str): name of input txt file in same directory as this one
+
+    Returns:
+    calibration_values (array): list of integers
+    '''
+
     nums_map = {
         "one": 1,
         "two": 2,
@@ -61,7 +94,7 @@ def get_correct_calibration_values(file_name):
     return calibration_values
 
 if __name__ == "__main__":
-    # calibration_values = get_scalibration_values("day_one_input.txt")
+    # calibration_values = get_calibration_values("day_one_input.txt")
     # sum_calibration_values(calibration_values)
 
     correct_calibration_values = get_correct_calibration_values("day_one_input.txt")
